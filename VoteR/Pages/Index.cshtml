@@ -1,0 +1,41 @@
+﻿@page
+@model IndexModel
+<style>
+    td {
+        border: 1px solid #000;
+        width: 200px;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <table>
+            <tr>
+                @{
+                    var i = 1;
+                    foreach (var item in Model.items)
+                    {
+                        <td style="border:1px solid #000;" width="200px">
+                            <h4>@item.Name</h4>
+                            <div>
+                                @{ 
+                                    string path = "~/images/" + item.Image;                                    
+                                }
+                                <img src="@path" width="125" height="125" asp-append-version="true"  />
+                            </div>
+                            <h4>Votes: <span id="@item.Id">0</span></h4>
+                            <button id="@item.Name" class="button" value="@item.Id">Vote For @item.Name</button>
+                        </td>
+                        if (i % 4 == 0)
+                        {
+                        @:</tr><tr>
+                        }
+                        i++;
+                    }
+                }
+            </tr>
+        </table>
+    </div>
+</div>
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/vote.js"></script>
+
